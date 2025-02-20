@@ -56,7 +56,7 @@
 // heading.classList.add("decorated", "secondClass", "thirdClass");
 // heading.classList.add("flex", "justify-center", "items-center");
 
-//ClassList also contains: remove, toggle, contains
+// ClassList also contains: remove, toggle, contains
 
 // const heading = document.querySelector("h1").classList.add("flex");
 
