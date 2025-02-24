@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bubbling / Capturing</title>
+    <style>
+      #wrapper {
+        height: 100vh;
+      }
+      #parent {
+        border: 3px solid;
+        padding: 3rem;
+        width: 40vw;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="parent">
+        <button>Click Me</button>
+      </div>
+    </div>
+
+    <script src="eventBubblingCapturing.js"></script>
+  </body>
+</html>
