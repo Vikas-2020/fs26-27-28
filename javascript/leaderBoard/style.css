@@ -1,0 +1,25 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.parent {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: rebeccapurple;
+  color: #fff;
+  margin: 1rem 0;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  width: 50vw;
+}
+.actions {
+  width: 20%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.actions span {
+  cursor: pointer;
+}
