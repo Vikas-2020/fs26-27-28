@@ -1,0 +1,11 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+#loadMore {
+  position: fixed;
+  bottom: 2rem;
+  right: 1rem;
+  z-index: 99;
+}

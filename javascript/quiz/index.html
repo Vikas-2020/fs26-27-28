@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="details">
+        <input
+          type="text"
+          placeholder="What should we call you?"
+          id="name"
+          required
+        />
+        <button id="start">Start Quiz</button>
+      </div>
+
+      <div id="quiz" class="hidden">
+        <div class="timer"></div>
+        <div class="question"></div>
+        <div class="options">
+          <p class="option"></p>
+          <p class="option"></p>
+          <p class="option"></p>
+          <p class="option"></p>
+        </div>
+      </div>
+      <div class="score hidden"></div>
+    </div>
+
+    <script src="quiz.js" type="module"></script>
+  </body>
+</html>
