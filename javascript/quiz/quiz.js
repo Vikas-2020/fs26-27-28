@@ -8,6 +8,7 @@ const questionDiv = document.querySelector(".question");
 const timerDiv = document.querySelector(".timer");
 const scoreDiv = document.querySelector(".score");
 const optionPara = document.querySelectorAll(".option");
+let score = 0;
 
 const players =
   localStorage.getItem("players") !== null
@@ -38,10 +39,64 @@ function storeDataInLS() {
 }
 
 function nextQuestion() {
-  questionDiv.innerText = questions[currentQuestionNumber].q;
-  optionPara.forEach((para, index) => {
-    para.innerText = questions[currentQuestionNumber].opt[index];
+  if (!questions[currentQuestionNumber].hasImage) {
+    questionDiv.innerText = questions[currentQuestionNumber].q;
+
+    optionPara.forEach((para, index) => {
+      //RESET THE BACKGROUND
+      removeColor(para);
+
+      //ENABLE OPTIONS AGAIN
+      para.classList.remove("disabled");
+
+      para.innerText = questions[currentQuestionNumber].opt[index];
+    });
+  } else {
+    //QUESTION CONTAIN IMAGES
+    questionDiv.innerText = questions[currentQuestionNumber].q;
+
+    optionPara.forEach((para, index) => {
+      const image = document.createElement("img");
+      image.src = "assets/" + questions[currentQuestionNumber].opt[index];
+      para.append(image);
+    });
+  }
+}
+
+optionPara.forEach((para) => {
+  //REGISTER CLICK EVENT
+  para.addEventListener("click", (e) => {
+    calculateScore(e);
+
+    //ONCE CLICKED & REGISTERED, DISABLED ALL THE OPTIONS
+    disableOptions();
   });
+});
+
+function disableOptions() {
+  optionPara.forEach((para) => para.classList.add("disabled"));
+}
+
+function calculateScore(e) {
+  // console.log(e.target.innerText);
+  console.log(
+    questions[currentQuestionNumber].correct,
+    Number(e.target.innerText)
+  );
+  if (questions[currentQuestionNumber].correct === Number(e.target.innerText)) {
+    score++;
+    applyColor(e.target, "correct");
+  } else applyColor(e.target, "incorrect");
+}
+
+function removeColor(element) {
+  element.classList.remove("correct", "incorrect");
+}
+
+function applyColor(element, ansValue) {
+  ansValue === "correct"
+    ? element.classList.add("correct")
+    : element.classList.add("incorrect");
 }
 
 function createTimer() {
@@ -54,7 +109,8 @@ function createTimer() {
         clearInterval(id);
         quizDiv.classList.add("hidden");
         scoreDiv.classList.remove("hidden");
-        calculateScore();
+        appendScoreInLS();
+        displayScore();
       } else {
         //RESET THE TIMER
         timer = 5;
@@ -68,8 +124,14 @@ function createTimer() {
   }, 1000);
 }
 
-function calculateScore() {
+function appendScoreInLS() {
+  const playersArray = JSON.parse(localStorage.getItem("players"));
+  playersArray[playersArray.length - 1].score = score;
+  localStorage.setItem("players", JSON.stringify(playersArray));
+}
+
+function displayScore() {
   const h2 = document.createElement("h2");
-  h2.innerText = "Your score is ";
+  h2.innerText = "Your score is " + score;
   scoreDiv.append(h2);
 }

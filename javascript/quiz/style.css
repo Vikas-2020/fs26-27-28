@@ -2,7 +2,146 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
 }
 .hidden {
-  display: none;
+  display: none !important;
+}
+body {
+  height: 100vh;
+  background-color: rebeccapurple;
+}
+#wrapper {
+  margin: 3rem auto;
+  width: 80%;
+  min-height: 200px;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: 9px 11px 14px 3px rgba(187, 51, 51, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#details {
+  text-align: center;
+  display: inline-flex;
+  gap: 2rem;
+}
+input {
+  padding: 8px 20px;
+  width: 300px;
+  border: 1px solid #a7a2a2;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+input::placeholder {
+  color: #ccc;
+}
+button {
+  padding: 8px 20px;
+  border: none;
+  background-color: #f1356d;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+button:hover {
+  background-color: #f1356d;
+  transform: scale(1.1);
+}
+#quiz {
+  padding: 1rem;
+  padding-right: 3rem;
+  width: 100%;
+  position: relative;
+}
+#quiz div {
+  font-weight: 700;
+}
+.timer {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: rebeccapurple;
+  color: #fff;
+  width: 50px;
+  height: 50px;
+}
+.question {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+.option {
+  padding: 0.5rem 1rem;
+  border: 1px solid #a7a2a2;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 48%;
+  pointer-events: all;
+  opacity: 1;
+}
+.correct {
+  background-color: green;
+  color: #fff;
+}
+.incorrect {
+  background-color: red;
+  color: #fff;
+}
+.option.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+header {
+  background-color: #f1356d;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 8rem;
+}
+header h1,
+header h1 a {
+  font-weight: 700;
+  color: #000;
+}
+header ul {
+  list-style-type: none;
+}
+header a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+}
+
+.message {
+  font-size: 3rem;
+  font-weight: 500;
+}
+table {
+  width: 100%;
+}
+th,
+td {
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 2px;
+  text-align: center;
+}
+th {
+  font-weight: 700;
 }

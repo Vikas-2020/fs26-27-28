@@ -32,6 +32,20 @@ const questions = [
     opt: [4, 0, 8, 16],
     correct: 4,
   },
+
+  {
+    q: "Which of the following is situated in Delhi?",
+    opt: ["red_fort.jpg", "b.jpg", "c.jpg", "d.jpg"],
+    corrent: "red_fort.jpg",
+    hasImage: true,
+  },
+
+  {
+    q: "Which of the following plays from Chennai SUper Kings?",
+    opt: ["msd.jpg", "virat.jpg", "abd.jpg", "pandya.jpg"],
+    corrent: "msd.jpg",
+    hasImage: true,
+  },
 ];
 // fetchQuestions();
 
