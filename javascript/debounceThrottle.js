@@ -98,8 +98,9 @@ function searchQuery(fname, lname) {
 const throttledSearch = throttle((fn, ln) => searchQuery(fn, ln), 1000);
 
 throttledSearch("Vikas", "Kumar"); // inside this function we are calling an API
+setTimeout(() => throttledSearch("Tanmay", "Shukla"), 1001);
 throttledSearch("Gaurav", "Kumar");
 
-// for (let i = 0; i < 999; i++) {
-//   throttledSearch(i, i + 1);
-// }
+for (let i = 0; i < 999; i++) {
+  throttledSearch(i, i + 1);
+}
