@@ -1,34 +1,58 @@
-import instance from "./axiosConfig.js";
-import { useState, useEffect } from "react";
-import Product from "./Product.jsx";
-import Header from "./components/Header.jsx";
-import Footer from "./components/Footer.jsx";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import First from "./pages/First";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import Wishlist from "./pages/Wishlist";
+import Cart from "./pages/Cart";
+import Login from "./pages/Login";
+import NotFound from "./pages/NotFound";
+import Singleproduct from "./pages/Singleproduct";
+import CartProvider from "./contexts/CartContext";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <First />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
+      },
+      {
+        path: "/wishlist",
+        element: <Wishlist />,
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/product/:id",
+        element: <Singleproduct />,
+      },
+      { path: "*", element: <NotFound /> },
+    ],
+  },
+]);
 
 function Main() {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  async function getData() {
-    const result = await instance.get("/product");
-    const cart = await instance.get("/api/cart/get");
-    console.log(result.data.products);
-    setProducts(result.data.products);
-  }
-
   return (
-    <>
-      <Header />
-      <div className="products flex flex-wrap justify-around items-center gap-3 px-12">
-        {products.length > 0 &&
-          products.map((product) => {
-            return <Product key={product.id} product={product} />;
-          })}
-      </div>
-      <Footer />
-    </>
+    <CartProvider>
+      <RouterProvider router={router} />
+    </CartProvider>
   );
 }
 
