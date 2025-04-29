@@ -9,6 +9,10 @@ import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import Singleproduct from "./pages/Singleproduct";
 import CartProvider from "./contexts/CartContext";
+import Register from "./pages/Register";
+
+import ProtectedRoute from "./components/ProtectedRoute";
+import Profile from "./pages/Profile";
 
 const router = createBrowserRouter([
   {
@@ -40,10 +44,25 @@ const router = createBrowserRouter([
         element: <Login />,
       },
       {
+        path: "/register",
+        element: <Register />,
+      },
+      {
         path: "/product/:id",
         element: <Singleproduct />,
       },
-      { path: "*", element: <NotFound /> },
+      {
+        path: "/profile",
+        element: (
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "*",
+        element: <NotFound />,
+      },
     ],
   },
 ]);

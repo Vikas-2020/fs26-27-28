@@ -1,12 +1,13 @@
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { AiOutlineHeart } from "react-icons/ai";
+
 import { BsFillPersonFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { cartContext } from "../contexts/CartContext";
+import { useCart } from "../contexts/CartContext";
 
 function Header() {
-  const { cart } = useContext(cartContext);
+  // const { cart } = useContext(cartContext);
+  const { cart } = useCart();
 
   return (
     <>
@@ -39,9 +40,9 @@ function Header() {
             </Link>
           </li>
           <li className="mr-5 cursor-pointer">
-            <a href="/login">
+            <Link to="/login">
               <BsFillPersonFill title="Your Account" className="text-2xl" />
-            </a>
+            </Link>
           </li>
         </ul>
       </header>
