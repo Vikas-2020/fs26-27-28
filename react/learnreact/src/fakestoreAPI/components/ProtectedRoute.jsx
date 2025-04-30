@@ -1,26 +1,24 @@
+import { useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
-import { Navigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function ProtectedRoute({ children }) {
+  const navigate = useNavigate();
   const { user } = useAuth();
+
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1000); // Add a timeout to prevent infinite loading
+    }, 1000);
 
-    return () => clearTimeout(timer);
-  }, [user]);
+    return () => clearInterval(timer);
+  }, []); //mounting
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  if (isLoading) return <h1>Loading...</h1>;
 
-  if (!user) {
-    return <Navigate to="/login" replace />;
-  }
+  if (!user) return navigate("/login");
 
   return children;
 }

@@ -1,13 +1,30 @@
-import { MdOutlineShoppingCart } from "react-icons/md";
+import { MdLogout, MdOutlineShoppingCart } from "react-icons/md";
+import { FaChevronDown } from "react-icons/fa";
+import { IoIosSettings } from "react-icons/io";
 import { AiOutlineHeart } from "react-icons/ai";
 
 import { BsFillPersonFill } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../contexts/CartContext";
+import { useAuth } from "../contexts/AuthContext";
+import { getAuth } from "firebase/auth";
+import app from "../firebase";
+import { useState } from "react";
+const auth = getAuth(app);
 
 function Header() {
+  const navigate = useNavigate();
   // const { cart } = useContext(cartContext);
   const { cart } = useCart();
+
+  // const {user} = useContext(AuthContext);
+  const { user } = useAuth();
+  const [dropdown, setDropdown] = useState(false);
+
+  function handleLogout() {
+    auth.signOut();
+    navigate("/login");
+  }
 
   return (
     <>
@@ -39,10 +56,39 @@ function Header() {
               </span>
             </Link>
           </li>
-          <li className="mr-5 cursor-pointer">
-            <Link to="/login">
-              <BsFillPersonFill title="Your Account" className="text-2xl" />
-            </Link>
+          <li className="mr-5 cursor-pointer relative">
+            {user ? (
+              <>
+                <div
+                  className="flex items-center"
+                  onClick={() => setDropdown((prev) => !prev)}
+                >
+                  <IoIosSettings /> <FaChevronDown />
+                </div>
+                {dropdown && (
+                  <ul className="absolute bg-rose-400 w-28 top-8 z-50 right-0">
+                    <li>
+                      <Link to="/profile">Profile</Link>
+                    </li>
+                    <li>
+                      <Link to="/my-orders">My Orders</Link>
+                    </li>
+                    <li>
+                      <button onClick={handleLogout}>
+                        <MdLogout title="Logout" className="text-2xl" />
+                      </button>
+                    </li>
+                  </ul>
+                )}
+              </>
+            ) : (
+              // <button onClick={handleLogout}>
+              //   <MdLogout title="Logout" className="text-2xl" />
+              // </button>
+              <Link to="/login">
+                <BsFillPersonFill title="Your Account" className="text-2xl" />
+              </Link>
+            )}
           </li>
         </ul>
       </header>

@@ -10,9 +10,9 @@ import NotFound from "./pages/NotFound";
 import Singleproduct from "./pages/Singleproduct";
 import CartProvider from "./contexts/CartContext";
 import Register from "./pages/Register";
-
-import ProtectedRoute from "./components/ProtectedRoute";
 import Profile from "./pages/Profile";
+import AuthProvider from "./contexts/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -33,11 +33,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/wishlist",
-        element: <Wishlist />,
+        element: (
+          <ProtectedRoute>
+            <Wishlist />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/cart",
-        element: <Cart />,
+        element: (
+          <ProtectedRoute>
+            <Cart />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/login",
@@ -59,6 +67,14 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      // {
+      //   path: "/my-orders",
+      //   element: (
+      //     <ProtectedRoute>
+      //       <MyOrders />
+      //     </ProtectedRoute>
+      //   ),
+      // },
       {
         path: "*",
         element: <NotFound />,
@@ -69,9 +85,11 @@ const router = createBrowserRouter([
 
 function Main() {
   return (
-    <CartProvider>
-      <RouterProvider router={router} />
-    </CartProvider>
+    <AuthProvider>
+      <CartProvider>
+        <RouterProvider router={router} />
+      </CartProvider>
+    </AuthProvider>
   );
 }
 
