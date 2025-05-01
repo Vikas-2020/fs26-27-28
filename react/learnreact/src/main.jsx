@@ -11,7 +11,7 @@ import "./index.css";
 // import States from "./leaderBoard/States.jsx";
 // import Main from "./boxesShowHide SOLVED/Main";
 // import Main from "./randomUser/Main";
-import Main from "./fakestoreAPI/Main";
+// import Main from "./fakestoreAPI/Main";
 // import Main from "./memoization/Main";
 // import Main from "./weatherApp/Main";
 // import Main from "./usingRef/Main";
@@ -19,6 +19,9 @@ import Main from "./fakestoreAPI/Main";
 // import Main from "./reducers/todo/Main.jsx";
 // import Main from "./trello-clone/Main.jsx";
 // import UsingUseMemo from "./memoization/UsingUseMemo";
+import Main from "./reduxTodo/Main.jsx";
+import { Provider } from "react-redux";
+import store from "./reduxTodo/store.js";
 
 createRoot(document.getElementById("root")).render(
   //   <SecondComponent name="Rohit Jain" age={34} skillset={["React", "Node", "Laravel"]} />
@@ -26,7 +29,9 @@ createRoot(document.getElementById("root")).render(
   //   <SecondComponent age="34" />
   // <Lists />
   // <Counter />
-  <Main />
+  <Provider store={store}>
+    <Main />
+  </Provider>
   // <States />
 );
 

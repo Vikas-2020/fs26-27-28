@@ -1,26 +1,22 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
 import instance from "../axiosConfig";
+import { useAuth } from "../contexts/AuthContext";
 import { useCart } from "../contexts/CartContext";
 
 function Singleproduct() {
   const { id } = useParams(); //{id:2}
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(true);
-  // const { handleAddToCart } = useContext(cartContext);
   const { handleAddToCart } = useCart();
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  const db = getFirestore();
 
   useEffect(() => {
     getSingleProductData(id);
   }, [id]);
-
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     nextQuestion();
-  //   }, 1000);
-
-  //   return () => clearInterval(interval);
-  // }, []);
 
   async function getSingleProductData(id) {
     setLoading(true);
@@ -28,6 +24,21 @@ function Singleproduct() {
     console.log(response.data.product);
     setProduct(response.data.product);
     setLoading(false);
+  }
+
+  async function handleAddToCollection(collectionName, product) {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+
+    try {
+      const docRef = doc(db, collectionName, `${user.uid}_${product.id}`);
+      await setDoc(docRef, { ...product, userId: user.uid });
+      console.log(`${product.title} added to ${collectionName}`);
+    } catch (error) {
+      console.error(`Error adding to ${collectionName}:`, error);
+    }
   }
 
   if (loading)
@@ -85,11 +96,14 @@ function Singleproduct() {
         <div className="buttons flex gap-4">
           <button
             className="px-4 py-2 border-2 border-green-400 bg-green-400 text-white rounded-2xl hover:bg-green-500"
-            onClick={() => handleAddToCart(product)}
+            onClick={() => handleAddToCollection("cart", product)}
           >
             Add to Cart
           </button>
-          <button className="px-4 py-2 border-2 border-pink-400 bg-pink-400 text-white rounded-2xl hover:bg-pink-500">
+          <button
+            className="px-4 py-2 border-2 border-pink-400 bg-pink-400 text-white rounded-2xl hover:bg-pink-500"
+            onClick={() => handleAddToCollection("wishlist", product)}
+          >
             Add to Wishlist
           </button>
         </div>
