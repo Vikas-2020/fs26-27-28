@@ -1,5 +1,6 @@
 import { createRoot } from "react-dom/client";
 import "./index.css";
+
 // import App from "./App.jsx";
 // import First from "./MyFirstComponent.jsx";
 // import SecondComponent from "./SecondComponent.jsx";
@@ -19,9 +20,13 @@ import "./index.css";
 // import Main from "./reducers/todo/Main.jsx";
 // import Main from "./trello-clone/Main.jsx";
 // import UsingUseMemo from "./memoization/UsingUseMemo";
-import Main from "./reduxTodo/Main.jsx";
+// import Main from "./reduxTodo/Main.jsx";
 import { Provider } from "react-redux";
-import store from "./reduxTodo/store.js";
+// import store from "./reduxTodo/store.js";
+// import store from "./ecommerceRedux/store.js";
+import store from "./movieRedux/store.js";
+import Main from "./movieRedux/Main";
+// import Main from "./ecommerceRedux/Main";
 
 createRoot(document.getElementById("root")).render(
   //   <SecondComponent name="Rohit Jain" age={34} skillset={["React", "Node", "Laravel"]} />

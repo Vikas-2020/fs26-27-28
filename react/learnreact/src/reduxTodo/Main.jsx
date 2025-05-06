@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setInput, addTasks } from "./todoSlice";
+import { setInput, addTasks, deleteTask, editTask } from "./todoSlice";
+import { MdDeleteOutline, MdEdit } from "react-icons/md";
 
 function Main() {
   const dispatch = useDispatch();
@@ -14,11 +15,23 @@ function Main() {
         onChange={(e) => dispatch(setInput(e.target.value))}
         value={initState.input}
       />
-      <button onClick={() => dispatch(addTasks())}>Add Task</button>
+      <button onClick={() => dispatch(addTasks())}>{initState.isEditing ? "Edit Task" : "Add Task"}</button>
 
-      <ul>
+      <ul className="w-52 my-10">
         {initState.tasks.map((obj) => {
-          return <li key={obj.id}>{obj.task}</li>;
+          return (
+            <li key={obj.id} className="flex justify-between items-center">
+              {obj.task}
+              <MdDeleteOutline
+                title="Delete this task"
+                onClick={() => dispatch(deleteTask(obj.id))}
+              />
+              <MdEdit
+                title="Edit this task"
+                onClick={() => dispatch(editTask(obj.id))}
+              />
+            </li>
+          );
         })}
       </ul>
     </>

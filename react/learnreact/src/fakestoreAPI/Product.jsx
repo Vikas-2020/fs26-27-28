@@ -16,7 +16,11 @@ function Product({ product }) {
         />
       </Link>
       <div className="h-1/2">
-        <h3>{trimContent(product.title, 10)}</h3>
+        <h3>
+          <Link to={`/product/${product.id}`}>
+            {trimContent(product.title, 10)}
+          </Link>
+        </h3>
         <p className="font-bold text-2xl absolute w-full left-4 bottom-4">
           ${product.price}
         </p>

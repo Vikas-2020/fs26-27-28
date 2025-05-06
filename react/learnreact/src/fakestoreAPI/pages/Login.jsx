@@ -3,10 +3,13 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import app from "../firebase";
+import { useAuth } from "../contexts/AuthContext";
 
 const auth = getAuth(app);
 
 function Login() {
+  const { user } = useAuth();
+  console.log(user);
   const navigate = useNavigate();
   const [form, setForm] = useState({
     email: "",
