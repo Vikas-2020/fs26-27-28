@@ -1,4 +1,14 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { searchData } from "../slices/movieSlice";
+import { URLs } from "../data";
+
 function Hero() {
+  const { movies, searchTerm } = useSelector((state) => state.movieReducer);
+  const dispatch = useDispatch();
+
+  console.log("movies", movies);
+
   return (
     // svh, lvh, dvh: Kewin Powell
     <>
@@ -15,7 +25,10 @@ function Hero() {
               placeholder="Search for a movie or a TV show"
             />
 
-            <button className="w-[20%] h-[60px] rounded-tr-4xl rounded-br-4xl bg-linear-[98.37deg,#f89e00_.99%,#da2f68_100%] outline-0">
+            <button
+              className="w-[20%] h-[60px] rounded-tr-4xl rounded-br-4xl bg-linear-[98.37deg,#f89e00_.99%,#da2f68_100%] outline-0"
+              onClick={() => dispatch(searchData(URLs.search, searchTerm))}
+            >
               Search
             </button>
           </div>
